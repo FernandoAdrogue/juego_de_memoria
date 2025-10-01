@@ -18,4 +18,3 @@ mkdir -p public
 cp index.html public/
 cp styles.css public/
 cp scripts.js public/
-cp firebase-config.js public/
