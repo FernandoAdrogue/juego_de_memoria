@@ -9,22 +9,5 @@ const firebaseConfig = {
           messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
             appId: process.env.FIREBASE_APP_ID
             };
-
-// Inicializar Firebase
-try {
-    firebase.initializeApp(firebaseConfig);
-    var db = firebase.firestore();
-    var firebaseInitialized = true;
-    console.log("Firebase inicializado correctamente.");
-} catch (e) {
-    console.error("Error al inicializar Firebase: ", e);
-    var firebaseInitialized = false;
-    document.addEventListener('DOMContentLoaded', (event) => {
-        const setupInstructions = document.getElementById('setupInstructions');
-        if (setupInstructions) {
-            setupInstructions.style.display = 'block';
-        }
-    });
-}
 EOL
 echo "firebase-config.js generado correctamente."
