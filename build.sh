@@ -10,4 +10,4 @@ const firebaseConfig = {
             appId: NEXT_PUBLIC_FIREBASE_APP_ID
             };
 EOL
-echo "firebase-config.js generado correctamente."
+echo "firebase-config.js generado correctamente"
