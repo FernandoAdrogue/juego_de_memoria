@@ -1,6 +1,4 @@
 ---
-import { rtl } from "astro-i18n";
-
 interface Props {
 	title: string;
 }
@@ -9,7 +7,7 @@ const { title } = Astro.props;
 ---
 
 <!DOCTYPE html>
-<html lang={Astro.locals.locale} dir={rtl(Astro.locals.locale) ? "rtl" : "ltr"}>
+<html lang="es" dir="ltr">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content="Astro description" />
