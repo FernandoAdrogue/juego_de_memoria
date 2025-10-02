@@ -139,6 +139,8 @@ const translations = {
         window.translations = translations;
     </script>
 
-    <script type="module" src="/scripts/firebase-config.js"></script>
-    <script src="/scripts/game.js" is:inline></script>
+    <script>
+        import "../scripts/firebase-config.js";
+        import "../scripts/game.js";
+    </script>
 </Layout>
