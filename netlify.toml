@@ -1,4 +1,6 @@
 [build]
-  base = "stale-star"
-  command = "npm run build"
-  publish = "dist"
+  command = "cd stale-star && npm install && npm run build"
+  publish = "stale-star/dist"
+
+[functions]
+  directory = "stale-star/netlify/functions"
