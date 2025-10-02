@@ -1,0 +1,147 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { t, getLangFromUrl } from 'astro-i18n';
+
+const lang = getLangFromUrl(Astro.url);
+const translations = {
+    firebaseInitSuccess: t('firebaseInitSuccess'),
+    firebaseInitError: t('firebaseInitError'),
+    firebaseNotConfigured: t('firebaseNotConfigured'),
+    configureFirebaseRanking: t('configureFirebaseRanking'),
+    loadRankingError: t('loadRankingError'),
+    beTheFirstToPlay: t('beTheFirstToPlay'),
+    noRecordsYet: t('noRecordsYet'),
+    firebaseNotSetUp: t('firebaseNotSetUp'),
+    completeAllFields: t('completeAllFields'),
+    enterValidEmail: t('enterValidEmail'),
+    saveError: t('saveError'),
+    saveScoreError: t('saveScoreError'),
+    gameCompleted: t('gameCompleted'),
+    scoreLabel: t('scoreLabel'),
+    timeScoreLabel: t('timeScoreLabel'),
+    movesScoreLabel: t('movesScoreLabel'),
+};
+---
+
+<Layout title={t('title')}>
+    <!-- LANDING PAGE -->
+    <div class="landing-page" id="landingPage">
+        <div class="landing-header">
+            <h1>🎮 {t('title')}</h1>
+            <p>{t('subtitle')}</p>
+        </div>
+
+        <div class="landing-content">
+            <!-- Sección del QR -->
+            <div class="qr-section">
+                <h2>📱 {t('playNow')}</h2>
+                <p>{t('scanQR')}</p>
+                <div id="qrcode"></div>
+                <div class="game-url" id="gameUrl">{t('loadingURL')}</div>
+            </div>
+
+            <!-- Sección del Ranking -->
+            <div class="ranking-section">
+                <h2>🏆 {t('rankingTitle')}</h2>
+                
+                <div class="podium" id="podium">
+                    <div class="loading">{t('loadingPodium')}</div>
+                </div>
+
+                <div class="ranking-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>{t('posHeader')}</th>
+                                <th>{t('playerHeader')}</th>
+                                <th>{t('scoreHeader')}</th>
+                                <th>{t('timeHeader')}</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rankingBody">
+                            <tr>
+                                <td colspan="4" class="loading">{t('loadingRanking')}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PÁGINA DEL JUEGO -->
+    <div class="game-page" id="gamePage">
+        <div class="container">
+            <h1>🎮 {t('title')}</h1>
+            
+            <div class="setup-instructions" id="setupInstructions" style="display: none;">
+                <h3>⚙️ {t('setupInstructionsTitle')}</h3>
+                <ol>
+                    <li>{t('firebaseSetupStep1')}</li>
+                    <li>{t('firebaseSetupStep2')}</li>
+                    <li>{t('firebaseSetupStep3')}</li>
+                    <li>{t('firebaseSetupStep4')}</li>
+                    <li>{t('firebaseSetupStep5')}</li>
+                </ol>
+            </div>
+            
+            <div class="form-section active" id="formSection">
+                <div id="errorMessage" class="error-message" style="display: none;"></div>
+                
+                <div class="form-group">
+                    <label for="playerName">{t('playerNameLabel')}</label>
+                    <input type="text" id="playerName" required placeholder={t('playerNamePlaceholder')}>
+                </div>
+                <div class="form-group">
+                    <label for="playerEmail">{t('playerEmailLabel')}</label>
+                    <input type="email" id="playerEmail" required placeholder={t('playerEmailPlaceholder')}>
+                </div>
+                <button onclick="startGame()">{t('startGameButton')}</button>
+                <button onclick="backToLanding()">{t('viewRankingButton')}</button>
+            </div>
+            
+            <div class="game-section" id="gameSection">
+                <div class="game-info">
+                    <div class="info-item">
+                        <div class="info-label">{t('timeLabel')}</div>
+                        <div class="info-value" id="timer">0:00</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">{t('movesLabel')}</div>
+                        <div class="info-value" id="moves">0</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">{t('matchesLabel')}</div>
+                        <div class="info-value" id="matches">0/8</div>
+                    </div>
+                </div>
+                
+                <div class="cards-grid" id="cardsGrid"></div>
+                
+                <button onclick="resetGame()">{t('resetGameButton')}</button>
+                <button onclick="backToLanding()">{t('viewRankingButton')}</button>
+            </div>
+            
+            <div class="results-section" id="resultsSection">
+                <div id="finalScoreDiv"></div>
+                <button onclick="backToStart()">{t('playAgainButton')}</button>
+                <button onclick="backToLanding()">{t('viewRankingButton')}</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- QR Code Library -->
+    <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+    <script define:vars={{ translations, lang }}>
+        window.translations = translations;
+        window.lang = lang;
+    </script>
+
+    <script type="module" src="/scripts/firebase-config.js"></script>
+    <script src="/scripts/game.js"></script>
+</Layout>
