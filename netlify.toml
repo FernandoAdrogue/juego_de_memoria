@@ -1,3 +1,3 @@
 [build]
-  command = "cd stale-star && npm install && npm run build"
-  publish = "stale-star/dist"
+  command = "npm install && npm run build"
+  publish = "dist"
